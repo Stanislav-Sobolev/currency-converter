@@ -39,7 +39,6 @@ export const App = () => {
         setRateUsdEur(responesUsdEur);
       })
       .catch(error => console.log('error', error));
-    console.log('0');
   }, []);
 
   useEffect(() => {
@@ -70,15 +69,16 @@ export const App = () => {
       default:
         break;
     }
-    console.log('1');
   }, [currency1, currency2, rateUahEur, rateUahUsd, rateUsdEur]);
 
   useEffect(() => {
     if (rate) {
-      setAmount2(1 * rate);
-      setAmount1(1);
+      setAmount1(prev => {
+        setAmount2(prev * rate);
+
+        return prev;
+      });
     }
-    console.log('2');
   }, [rate]);
 
   function handleCurrencyChange(e) {
@@ -87,10 +87,8 @@ export const App = () => {
     if (selector === '1') {
       setAmount2(amount1 * rate);
       setCurrency1(value);
-      console.log('3_1');
     } else {
       setCurrency2(value);
-      console.log('3_2');
     }
   }
 
@@ -107,11 +105,9 @@ export const App = () => {
     if (selector === '1') {
       setAmount2(Number.parseFloat((value * rate).toFixed(2)));
       setAmount1(Number(value));
-      console.log('4_1');
     } else {
       setAmount1(Number.parseFloat((value / rate).toFixed(2)));
       setAmount2(Number(value));
-      console.log('4_2');
     }
   }
 
