@@ -6,7 +6,6 @@ import { CurrencyField } from './CurrencyField';
 
 export const App = () => {
   const [amount1, setAmount1] = useState(1);
-
   const [amount2, setAmount2] = useState(1);
   const [currency1, setCurrency1] = useState('UAH');
   const [currency2, setCurrency2] = useState('UAH');
@@ -96,7 +95,14 @@ export const App = () => {
 
   function handleAmountChange(e) {
     const selector = e.target.name;
-    const { value } = e.target;
+    const value = e.target.value.trim();
+
+    if (value === '') {
+      setAmount1('');
+      setAmount2('');
+      return;
+    }
+
     if (selector === '1') {
       setAmount2(Number.parseFloat((value * rate).toFixed(2)));
       setAmount1(value);
@@ -133,14 +139,6 @@ export const App = () => {
           onCurrencyChange={handleCurrencyChange}
           onAmountChange={handleAmountChange}
         />
-      </div>
-      <div>
-        <p>rate{rate}</p>
-        <p>currency1{currency1}</p>
-        <p>currency2{currency2}</p>
-        <p>rateUahUsd{rateUahUsd}</p>
-        <p>rateUahEur{rateUahEur}</p>
-        <p>rateUsdEur{rateUsdEur}</p>
       </div>
     </>
   );

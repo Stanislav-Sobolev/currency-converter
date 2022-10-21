@@ -16,6 +16,8 @@ export const CurrencyField = ({
         id="outlined-basic"
         label=""
         variant="outlined"
+        type="number"
+        InputProps={{ inputProps: { min: 0 } }}
         name={numberField}
         value={amount}
         onChange={e => onAmountChange(e)}
