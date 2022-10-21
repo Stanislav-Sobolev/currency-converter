@@ -1,18 +1,19 @@
 import React from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 import { HeaderRate } from './HeaderRate';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { CurrencyField } from './CurrencyField';
 
 export const App = () => {
+  const currencies = ['UAH', 'USD', 'EUR'];
   const [amount1, setAmount1] = useState(1);
   const [amount2, setAmount2] = useState(1);
-  const [currency1, setCurrency1] = useState('UAH');
-  const [currency2, setCurrency2] = useState('UAH');
-  const currencies = ['UAH', 'USD', 'EUR'];
-  const [rateUahUsd, setRateUahUsd] = useState('');
-  const [rateUahEur, setRateUahEur] = useState('');
-  const [rateUsdEur, setRateUsdEur] = useState('');
+  const [currency1, setCurrency1] = useState(currencies[0]);
+  const [currency2, setCurrency2] = useState(currencies[1]);
+  const [rateUahUsd, setRateUahUsd] = useState(1);
+  const [rateUahEur, setRateUahEur] = useState(1);
+  const [rateUsdEur, setRateUsdEur] = useState(1);
   const [rate, setRate] = useState(1);
 
   useEffect(() => {
@@ -105,11 +106,11 @@ export const App = () => {
 
     if (selector === '1') {
       setAmount2(Number.parseFloat((value * rate).toFixed(2)));
-      setAmount1(value);
+      setAmount1(Number(value));
       console.log('4_1');
     } else {
       setAmount1(Number.parseFloat((value / rate).toFixed(2)));
-      setAmount2(value);
+      setAmount2(Number(value));
       console.log('4_2');
     }
   }
@@ -127,6 +128,7 @@ export const App = () => {
       <div className="carrencyFieldWrapper">
         <CurrencyField
           numberField="1"
+          defaultCurrency={currencies[0]}
           currencies={currencies}
           amount={amount1}
           onCurrencyChange={handleCurrencyChange}
@@ -134,6 +136,7 @@ export const App = () => {
         />
         <CurrencyField
           numberField="2"
+          defaultCurrency={currencies[1]}
           currencies={currencies}
           amount={amount2}
           onCurrencyChange={handleCurrencyChange}
@@ -142,4 +145,19 @@ export const App = () => {
       </div>
     </>
   );
+};
+
+CurrencyField.propTypes = {
+  numberField: PropTypes.string,
+  defaultCurrency: PropTypes.string,
+  currencies: PropTypes.array,
+  amount: PropTypes.number,
+  onCurrencyChange: PropTypes.func,
+  onAmountChange: PropTypes.func,
+};
+
+HeaderRate.propTypes = {
+  className: PropTypes.string,
+  rateUahUsd: PropTypes.number,
+  rateUahEur: PropTypes.number,
 };

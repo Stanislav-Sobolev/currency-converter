@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 
 export const CurrencyField = ({
   numberField,
+  defaultCurrency,
   amount,
   currencies,
   onCurrencyChange,
@@ -24,7 +25,7 @@ export const CurrencyField = ({
       />
 
       <Select
-        defaultValue={currencies[0]}
+        defaultValue={defaultCurrency}
         name={numberField}
         onChange={onCurrencyChange}
       >
