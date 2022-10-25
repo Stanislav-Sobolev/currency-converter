@@ -15,6 +15,7 @@ export const App = () => {
   const [rateUahEur, setRateUahEur] = useState(1);
   const [rateUsdEur, setRateUsdEur] = useState(1);
   const [rate, setRate] = useState(1);
+  console.log('object');
 
   useEffect(() => {
     const uahUsdRequest = axios.get(
