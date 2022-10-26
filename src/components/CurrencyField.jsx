@@ -2,15 +2,17 @@ import React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import { useAllSelectors } from '../hooks/useAllSelectors';
 
 export const CurrencyField = ({
   numberField,
   defaultCurrency,
   amount,
-  currencies,
   onCurrencyChange,
   onAmountChange,
 }) => {
+  const { supportedCurrencies, rate } = useAllSelectors();
+
   return (
     <div>
       <TextField
@@ -20,7 +22,7 @@ export const CurrencyField = ({
         type="number"
         InputProps={{ inputProps: { min: 0 } }}
         name={numberField}
-        value={amount}
+        value={rate && amount}
         onChange={e => onAmountChange(e)}
       />
 
@@ -29,7 +31,7 @@ export const CurrencyField = ({
         name={numberField}
         onChange={onCurrencyChange}
       >
-        {currencies.map(currency => (
+        {supportedCurrencies.map(currency => (
           <MenuItem value={currency} key={currency}>
             {currency}
           </MenuItem>

@@ -37,6 +37,11 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
+.loadSpinner {
+  display: flex;
+  justify-content: center;
+}
+
 .header {
   background-color: lightgrey;
   padding-top: 10px;
