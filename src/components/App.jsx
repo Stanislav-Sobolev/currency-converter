@@ -37,6 +37,7 @@ export const App = () => {
         return prev;
       });
     }
+    // eslint-disable-next-line
   }, [rate, dispatch]);
 
   function handleCurrencyChange(e) {
